@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TWT Solutions | Luxury Hospitality</title>
-
+    <title>TWT Solutions | Luxury Hospitality & Technology Consultancy</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* Custom Styles for Luxury Feel */
-        body { font-family: 'Lato', sans-serif; background-color: #0f172a; }
+        /* BASE STYLES */
+        body { font-family: 'Lato', sans-serif; background-color: #0f172a; color: #e2e8f0; }
         h1, h2, h3, .luxury-font { font-family: 'Playfair Display', serif; }
-
-        /* Gold Gradient Text */
+        
+        /* GOLD EFFECTS */
         .text-gold-gradient {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
@@ -25,254 +24,767 @@
             background-size: 200% auto;
             animation: shine 5s linear infinite;
         }
-
-        /* Gold Button Gradient */
+        
         .btn-gold {
             background-image: linear-gradient(to right, #aa771c 0%, #fcf6ba 51%, #aa771c 100%);
             transition: 0.5s;
             background-size: 200% auto;
             color: black;
-            box-shadow: 0 0 20px #eee;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
-        .btn-gold:hover { background-position: right center; color: #000; text-decoration: none; }
+        .btn-gold:hover { background-position: right center; color: #000; transform: scale(1.05); }
 
-        /* Animation Keyframes */
+        /* ANIMATIONS */
         @keyframes shine { to { background-position: 200% center; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .animate-on-load { animation: fadeUp 1s ease-out forwards; }
-        .delay-100 { animation-delay: 0.2s; }
-        .delay-200 { animation-delay: 0.4s; }
-
-        /* Glassmorphism Card */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        /* GLASSMORPHISM */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        /* CIRCULAR LOGO FRAME */
+        .logo-frame {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0a192f 0%, #1e293b 100%);
+            border: 3px solid #bf953f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(191, 149, 63, 0.3);
+            overflow: hidden;
+            padding: 5px;
+        }
+        
+        /* LOGO IMAGE STYLE */
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* SMALL LOGO FOR NAV */
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #bf953f;
+            overflow: hidden;
+            padding: 2px;
+        }
+        
+        /* ELITE WAITER TRAINING SPECIAL CARD */
+        .elite-card {
+            background: linear-gradient(135deg, rgba(191, 149, 63, 0.1) 0%, rgba(10, 25, 47, 0.9) 100%);
+            border: 2px solid #bf953f;
+            position: relative;
+            overflow: hidden;
+        }
+        .elite-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #bf953f);
+        }
+        
+        /* FAQ ACCORDION STYLES */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .faq-question {
+            cursor: pointer;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            color: #bf953f;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .faq-answer.open {
+            max-height: 500px;
+        }
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
-<body class="text-gray-200 overflow-x-hidden">
+<body class="overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 bg-[#0a192f]/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-[#0a192f]/95 backdrop-blur-md border-b border-gray-800 transition-all shadow-lg">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-to-br from-[#bf953f] to-[#aa771c] rounded-full flex items-center justify-center text-[#0a192f] font-bold text-lg">T</div>
-                <span class="text-xl font-bold tracking-widest text-white">TWT <span class="text-[#bf953f] text-sm font-normal">SOLUTIONS</span></span>
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="nav-logo">
+                    <!-- REPLACE THE SRC WITH YOUR ACTUAL LOGO IMAGE URL -->
+                    <img src="https://via.placeholder.com/150x150/bf953f/0a192f?text=TWT+LOGO" alt="TWT Solutions Logo" class="logo-img">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold tracking-widest text-white leading-none">TWT</span>
+                    <span class="text-[10px] md:text-xs text-[#bf953f] tracking-[0.3em] uppercase">Solutions</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex gap-8 text-sm uppercase tracking-wider font-semibold text-gray-300">
+                <a href="#vision" class="hover:text-[#bf953f] transition">Vision</a>
+                <a href="#about" class="hover:text-[#bf953f] transition">About</a>
+                <a href="#services" class="hover:text-[#bf953f] transition">Services</a>
+                <a href="#experts" class="hover:text-[#bf953f] transition">Experts</a>
+                <a href="#faq" class="hover:text-[#bf953f] transition">FAQ</a>
+                <a href="#contact" class="hover:text-[#bf953f] transition">Contact</a>
             </div>
 
-            <button onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-2 text-xs uppercase tracking-widest border border-[#bf953f] text-[#bf953f] px-4 py-2 rounded-full hover:bg-[#bf953f] hover:text-[#0a192f] transition duration-300">
-                <i class="fas fa-globe"></i> <span id="langText">Somali</span>
-            </button>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-2 text-xs uppercase tracking-widest border border-[#bf953f] text-[#bf953f] px-3 py-1 rounded-full hover:bg-[#bf953f] hover:text-[#0a192f] transition">
+                    EN / SO
+                </button>
+            </div>
         </div>
     </nav>
 
-    <header class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-30"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#0a192f]/80 via-[#0a192f]/60 to-[#0f172a]"></div>
+    <header class="relative h-screen flex items-center justify-center text-center px-4">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0a192f]/80 to-[#0a192f]/50"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto mt-10">
-            <p id="heroTag" class="text-[#bf953f] uppercase tracking-[0.3em] text-xs md:text-sm mb-4 animate-on-load opacity-0">Vision & Logo</p>
-            <h1 id="heroTitle" class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight animate-on-load delay-100 opacity-0">
-                Empowering <span class="text-gold-gradient italic">Hospitality</span> through <br> Excellence
+        <div class="relative z-10 max-w-5xl mx-auto mt-16">
+            <div class="logo-frame mb-8 animate-float">
+                <!-- REPLACE THE SRC WITH YOUR ACTUAL LOGO IMAGE URL -->
+                <img src="https://via.placeholder.com/150x150/bf953f/0a192f?text=TWT+LOGO" alt="TWT Solutions Logo" class="logo-img">
+            </div>
+            
+            <div class="inline-block border border-[#bf953f] px-4 py-1 rounded-full mb-6 animate-float">
+                <span id="heroTag" class="text-[#bf953f] uppercase tracking-[0.2em] text-xs font-bold">Luxury Hospitality & Technology</span>
+            </div>
+            <h1 id="heroTitle" class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight">
+                Where <span class="text-gold-gradient">Excellence</span><br>Meets Innovation
             </h1>
-            <p id="heroSub" class="text-gray-300 text-lg md:text-xl mb-10 font-light max-w-2xl mx-auto animate-on-load delay-200 opacity-0">
-                Bridging the gap between traditional service excellence and modern digital innovation.
+            <p id="heroSub" class="text-gray-300 text-lg md:text-xl mb-10 font-light max-w-3xl mx-auto">
+                Empowering 5-star establishments with elite service standards, operational power, and cutting-edge technology to dominate the global market.
             </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center animate-on-load delay-200 opacity-0">
-                <button class="btn-gold px-8 py-3 rounded-full font-bold uppercase text-sm tracking-wider">
-                    <span id="ctaMain">Start Transformation</span>
-                </button>
-                <button class="border border-gray-500 text-white px-8 py-3 rounded-full font-bold uppercase text-sm tracking-wider hover:bg-white hover:text-[#0a192f] transition">
-                    <span id="ctaSec">Learn More</span>
-                </button>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="btn-gold px-8 py-4 rounded-full font-bold uppercase text-sm tracking-wider">
+                    <i class="fas fa-calendar-check mr-2"></i><span id="ctaMain">Free Consultation</span>
+                </a>
+                <a href="menu.html" target="_blank" class="glass-card text-white px-8 py-4 rounded-full font-bold uppercase text-sm tracking-wider hover:bg-white/10 transition flex items-center justify-center gap-2">
+                    <i class="fas fa-qrcode text-[#bf953f]"></i> <span id="ctaMenu">View Smart Menu</span>
+                </a>
             </div>
         </div>
     </header>
 
-    <section class="py-20 bg-[#0f172a] relative">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="relative">
-                <div class="absolute -top-4 -left-4 w-20 h-20 border-t-2 border-l-2 border-[#bf953f] opacity-50"></div>
-                <h2 id="aboutTitle" class="text-3xl md:text-4xl font-bold text-white mb-6">Quality is <span class="text-gold-gradient">Power</span>.</h2>
-                <p id="aboutDesc" class="text-gray-400 leading-relaxed mb-6">
-                    At TWT Solutions, we are a premier hospitality consultancy dedicated to elevating the standards of 5-star hotels. We ensure your establishment stands out in a competitive global market.
-                </p>
-                <div class="flex gap-4 text-[#bf953f]">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </div>
-            <div class="glass-card p-8 rounded-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="bg-[#bf953f]/20 p-3 rounded-full text-[#bf953f]">
-                        <i class="fas fa-gem text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 id="val1Title" class="text-xl text-white font-bold">Elite Standards</h4>
-                        <p id="val1Desc" class="text-sm text-gray-400 mt-1">Implementing international 5-star protocols tailored to the local market.</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="bg-[#bf953f]/20 p-3 rounded-full text-[#bf953f]">
-                        <i class="fas fa-chart-line text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 id="val2Title" class="text-xl text-white font-bold">Proven Results</h4>
-                        <p id="val2Desc" class="text-sm text-gray-400 mt-1">We increase guest satisfaction scores and boost operational efficiency.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-[#0a192f]">
+    <section id="vision" class="py-24 bg-[#0a192f] relative overflow-hidden">
+        <div class="absolute -right-20 top-20 w-64 h-64 bg-[#bf953f] rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
+        
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span id="serviceTag" class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Core Services</span>
-                <h2 id="serviceTitle" class="text-3xl md:text-5xl font-bold text-white mt-2">What We Offer</h2>
+                <span class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Our Purpose</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mt-2">Vision & Mission</h2>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="group bg-[#112240] p-8 rounded-2xl hover:bg-[#1a2f55] transition duration-300 border-t-4 border-[#bf953f] shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
-                        <i class="fas fa-user-tie text-9xl text-white"></i>
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-[#0a192f] rounded-full flex items-center justify-center text-[#bf953f] text-2xl mb-6 shadow-lg">
+                        <i class="fas fa-eye"></i>
                     </div>
-                    <i class="fas fa-user-tie text-4xl text-[#bf953f] mb-6"></i>
-                    <h3 id="srv1Title" class="text-xl font-bold text-white mb-4">Elite Human Capital Training</h3>
-                    <ul id="srv1List" class="text-gray-400 text-sm space-y-2">
-                        <li>• The Elite Server & Art of Service</li>
-                        <li>• Leadership Excellence</li>
-                        <li>• Emotional Intelligence</li>
-                    </ul>
+                    <h3 class="text-2xl font-bold text-white mb-4">Vision</h3>
+                    <p id="visionText" class="text-gray-300 leading-relaxed">
+                        To be the leading force in modernizing the hospitality sector by bridging the gap between traditional excellence and modern digital innovation.
+                    </p>
                 </div>
 
-                <div class="group bg-[#112240] p-8 rounded-2xl hover:bg-[#1a2f55] transition duration-300 border-t-4 border-blue-500 shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
-                        <i class="fas fa-mobile-alt text-9xl text-white"></i>
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-[#0a192f] rounded-full flex items-center justify-center text-[#bf953f] text-2xl mb-6 shadow-lg">
+                        <i class="fas fa-bullseye"></i>
                     </div>
-                    <i class="fas fa-mobile-alt text-4xl text-blue-400 mb-6"></i>
-                    <h3 id="srv2Title" class="text-xl font-bold text-white mb-4">Next-Gen Digital Solutions</h3>
-                    <ul id="srv2List" class="text-gray-400 text-sm space-y-2">
-                        <li>• Professional Web Design</li>
-                        <li>• <span class="text-white font-bold">Smart QR-Code Menus</span></li>
-                        <li>• Digital Brand Identity</li>
-                    </ul>
-                </div>
-
-                <div class="group bg-[#112240] p-8 rounded-2xl hover:bg-[#1a2f55] transition duration-300 border-t-4 border-gray-500 shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
-                        <i class="fas fa-cogs text-9xl text-white"></i>
-                    </div>
-                    <i class="fas fa-cogs text-4xl text-gray-400 mb-6"></i>
-                    <h3 id="srv3Title" class="text-xl font-bold text-white mb-4">Operational Excellence</h3>
-                    <p id="srv3Desc" class="text-gray-400 text-sm">Standard Operating Procedures (SOP) development to ensure consistency and quality.</p>
+                    <h3 class="text-2xl font-bold text-white mb-4">Mission</h3>
+                    <p id="missionText" class="text-gray-300 leading-relaxed">
+                        To empower 5-star establishments with elite service standards, operational power, and cutting-edge technology to ensure they stand out in a competitive global market.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#050b14] py-12 border-t border-[#1a2f55]">
-        <div class="container mx-auto px-6 text-center">
-            <h2 id="footerTitle" class="text-2xl font-bold text-white mb-4">Ready to Elevate Your Brand?</h2>
-            <p id="footerDesc" class="text-gray-500 mb-8 max-w-lg mx-auto">Don't settle for ordinary. Power your business with Tayo waa Tamar.</p>
-            <a href="mailto: mawliit.mahamet52@gmail.com" class="inline-block border border-[#bf953f] text-[#bf953f] px-8 py-3 rounded-full hover:bg-[#bf953f] hover:text-black transition duration-300">
-                <span id="contactBtn">Contact Us Today</span>
-            </a>
-            <p class="text-gray-600 text-xs mt-12">© 2026 TWT Solutions. All Rights Reserved.</p>
+    <section id="about" class="py-24 bg-[#0f172a] relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span id="aboutTag" class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Our Story</span>
+                <h2 id="aboutTitle" class="text-3xl md:text-5xl font-bold text-white mt-2">About TWT Solutions</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-[#bf953f] to-[#aa771c] rounded-2xl blur opacity-25"></div>
+                    <div class="relative bg-[#0a192f] rounded-2xl p-8 border border-gray-800">
+                        <h3 class="text-2xl font-bold text-white mb-6">Who We Are</h3>
+                        <p id="aboutDesc1" class="text-gray-300 leading-relaxed mb-6">
+                            TWT Solutions (Tayo waa Tamar) is a premier consultancy firm that stands at the intersection of luxury hospitality and cutting-edge technology. Founded with a vision to revolutionize East Africa's service industry, we bring together 14 years of international expertise with deep local insights.
+                        </p>
+                        <p id="aboutDesc2" class="text-gray-300 leading-relaxed mb-8">
+                            We don't just train—we transform. Our approach combines traditional service excellence with modern digital solutions, creating a comprehensive ecosystem that empowers businesses to achieve and maintain 5-star standards in today's competitive market.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="text-center p-4 bg-[#0f172a] rounded-xl border border-gray-800">
+                                <div class="text-3xl font-bold text-[#bf953f] mb-2">14+</div>
+                                <div class="text-sm text-gray-400">Years Experience</div>
+                            </div>
+                            <div class="text-center p-4 bg-[#0f172a] rounded-xl border border-gray-800">
+                                <div class="text-3xl font-bold text-[#bf953f] mb-2">50+</div>
+                                <div class="text-sm text-gray-400">Projects Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-[#bf953f]">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-[#bf953f] text-xl">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <h4 id="aboutValue1" class="text-lg font-bold text-white mb-2">Our Philosophy</h4>
+                                <p id="aboutValueDesc1" class="text-gray-400 text-sm">
+                                    We believe that quality service is the ultimate differentiator in the hospitality industry. Our philosophy centers on creating memorable experiences through exceptional service and innovative solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-blue-400 text-xl">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h4 id="aboutValue2" class="text-lg font-bold text-white mb-2">Our Approach</h4>
+                                <p id="aboutValueDesc2" class="text-gray-400 text-sm">
+                                    Tailored solutions for each client. We understand that every business is unique, and we work closely with you to develop customized strategies that align with your specific goals and challenges.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-green-500">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-green-400 text-xl">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div>
+                                <h4 id="aboutValue3" class="text-lg font-bold text-white mb-2">Our Commitment</h4>
+                                <p id="aboutValueDesc3" class="text-gray-400 text-sm">
+                                    We are committed to delivering measurable results. Our success is measured by your growth, improved efficiency, and enhanced customer satisfaction.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section id="services" class="py-24 bg-[#0a192f] relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span id="serviceTag" class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Our Expertise</span>
+                <h2 id="serviceTitle" class="text-3xl md:text-5xl font-bold text-white mt-2">Core Services</h2>
+                <p id="serviceSub" class="text-gray-400 mt-4 max-w-2xl mx-auto">Comprehensive solutions blending luxury hospitality with advanced technology</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Network Installation -->
+                <div class="glass-card p-6 rounded-2xl hover:transform hover:-translate-y-2 transition duration-300 border-l-4 border-blue-500">
+                    <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-blue-400 text-xl mb-4">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 id="srv1Title" class="text-xl font-bold text-white mb-3">Network & IT Infrastructure</h3>
+                    <p id="srv1Desc" class="text-gray-400 text-sm leading-relaxed">
+                        Professional IT infrastructure setup, maintenance, and optimization for hotels and businesses.
+                    </p>
+                </div>
+
+                <!-- CCTV Installation -->
+                <div class="glass-card p-6 rounded-2xl hover:transform hover:-translate-y-2 transition duration-300 border-l-4 border-green-500">
+                    <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-green-400 text-xl mb-4">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 id="srv2Title" class="text-xl font-bold text-white mb-3">CCTV & Security Systems</h3>
+                    <p id="srv2Desc" class="text-gray-400 text-sm leading-relaxed">
+                        High-end security system solutions, surveillance installation, and comprehensive maintenance.
+                    </p>
+                </div>
+
+                <!-- Elite Waiter Training -->
+                <div class="elite-card p-6 rounded-2xl hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-12 h-12 bg-[#0a192f] rounded-full flex items-center justify-center text-[#bf953f] text-xl mb-4">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 id="srv3Title" class="text-xl font-bold text-white mb-3">Elite Waiter Training</h3>
+                    <p id="srv3Desc" class="text-gray-400 text-sm leading-relaxed">
+                        Premium training in 5-star service protocols, etiquette, and the art of luxury hospitality.
+                    </p>
+                </div>
+
+                <!-- Digital Solutions -->
+                <div class="glass-card p-6 rounded-2xl hover:transform hover:-translate-y-2 transition duration-300 border-l-4 border-purple-500">
+                    <div class="w-12 h-12 bg-[#0f172a] rounded-full flex items-center justify-center text-purple-400 text-xl mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 id="srv4Title" class="text-xl font-bold text-white mb-3">Digital Solutions</h3>
+                    <p id="srv4Desc" class="text-gray-400 text-sm leading-relaxed">
+                        Professional web design, Smart QR-Code Menus, and comprehensive digital brand identity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experts" class="py-24 bg-[#0f172a] border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Meet Our Team</span>
+                <h2 id="expertsTitle" class="text-3xl md:text-5xl font-bold text-white mt-2">Industry Experts</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Expert 1 -->
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-32 h-32 mx-auto bg-gray-800 rounded-full border-2 border-[#bf953f] p-1 mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Prof. Ahmed Mahamed Hasan</h3>
+                    <p id="expert1Role" class="text-[#bf953f] uppercase tracking-widest text-xs mb-6">Founder & Lead Consultant</p>
+                    <p id="expert1Bio" class="text-gray-300 leading-relaxed mb-6">
+                        Hospitality expert with 14+ years of international experience from Dubai's luxury sector. MBA holder and former academic leader at Jigjiga University.
+                    </p>
+                    <div class="flex justify-center gap-4">
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-[#bf953f]">14+ Years Exp</span>
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-[#bf953f]">MBA</span>
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-[#bf953f]">Luxury Sector</span>
+                    </div>
+                </div>
+
+                <!-- Expert 2 -->
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-32 h-32 mx-auto bg-gray-800 rounded-full border-2 border-blue-500 p-1 mb-6 overflow-hidden">
+                        <img src="mawllitmo.jpg" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Mawliid Mahamed Abdi</h3>
+                    <p id="expert2Role" class="text-blue-400 uppercase tracking-widest text-xs mb-6">Programmer & Tech Consultant</p>
+                    <p id="expert2Bio" class="text-gray-300 leading-relaxed mb-6">
+                        Specializing in high-end coding, digital infrastructure, and innovative tech solutions for the modern hospitality industry.
+                    </p>
+                    <div class="flex justify-center gap-4">
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-blue-400">Full Stack Dev</span>
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-blue-400">Tech Solutions</span>
+                        <span class="bg-[#0f172a] px-3 py-1 rounded-full text-xs text-blue-400">Digital Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-[#0a192f] border-t border-gray-800">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16">
+                <span id="faqTag" class="text-[#bf953f] uppercase tracking-widest text-xs font-bold">Common Questions</span>
+                <h2 id="faqTitle" class="text-3xl md:text-5xl font-bold text-white mt-2">Frequently Asked Questions</h2>
+                <p id="faqSub" class="text-gray-400 mt-4 max-w-2xl mx-auto">Find answers to common questions about our services and processes</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item glass-card rounded-xl">
+                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(1)">
+                        <h3 id="faqQ1" class="text-lg font-bold text-white">What makes TWT Solutions different from other consultancy firms?</h3>
+                        <span class="faq-icon text-[#bf953f]">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <p id="faqA1" class="text-gray-300 pb-6 leading-relaxed">
+                            Unlike traditional consultancy firms, we combine 14 years of international luxury hospitality experience with cutting-edge technology solutions. We provide end-to-end services, from elite staff training to digital transformation and IT infrastructure, making us a one-stop solution for modern hospitality businesses.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item glass-card rounded-xl">
+                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(2)">
+                        <h3 id="faqQ2" class="text-lg font-bold text-white">How long does it take to see results from your training programs?</h3>
+                        <span class="faq-icon text-[#bf953f]">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <p id="faqA2" class="text-gray-300 pb-6 leading-relaxed">
+                            Most clients see noticeable improvements within the first 30 days. Our training programs are designed to deliver immediate practical skills while building long-term service excellence. We provide ongoing support and follow-up sessions to ensure sustained improvement.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item glass-card rounded-xl">
+                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(3)">
+                        <h3 id="faqQ3" class="text-lg font-bold text-white">Do you provide support after the initial consultation?</h3>
+                        <span class="faq-icon text-[#bf953f]">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <p id="faqA3" class="text-gray-300 pb-6 leading-relaxed">
+                            Yes, we offer comprehensive post-implementation support including monthly check-ins, troubleshooting assistance, and access to our resource library. We believe in building long-term partnerships with our clients.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item glass-card rounded-xl">
+                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(4)">
+                        <h3 id="faqQ4" class="text-lg font-bold text-white">Can you work with businesses outside of Somalia?</h3>
+                        <span class="faq-icon text-[#bf953f]">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <p id="faqA4" class="text-gray-300 pb-6 leading-relaxed">
+                            Absolutely! While we're based in East Africa and specialize in the local market, we have experience working with international clients. Our hybrid approach allows us to provide both in-person and remote consultations to businesses worldwide.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item glass-card rounded-xl">
+                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(5)">
+                        <h3 id="faqQ5" class="text-lg font-bold text-white">What industries do you specialize in?</h3>
+                        <span class="faq-icon text-[#bf953f]">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <p id="faqA5" class="text-gray-300 pb-6 leading-relaxed">
+                            We specialize in luxury hospitality including hotels, resorts, fine dining restaurants, and premium service establishments. Our technology solutions are also applicable to businesses seeking digital transformation and modern infrastructure.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-[#0f172a] relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="bg-gradient-to-br from-[#0a192f] to-[#1e293b] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-800 glass-effect">
+                <div class="md:w-2/5 p-10 text-white relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-envelope-open-text text-8xl"></i>
+                    </div>
+                    <h3 id="contactTitle" class="font-luxury text-2xl font-bold mb-6">Get In Touch</h3>
+                    <p id="contactSub" class="text-gray-400 text-sm mb-8">Ready to transform your hospitality business? Contact us for a free consultation.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-[#bf953f]/20 flex items-center justify-center text-[#bf953f]">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Phone</p>
+                                <p class="font-bold">+251 955 566 999</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-[#bf953f]/20 flex items-center justify-center text-[#bf953f]">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Email</p>
+                                <p class="font-bold">mawliit.mahamet52@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 pt-4">
+                            <a href="https://wa.me/251955566999" class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://t.me/twtsolutions" class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="mailto: mawliit.mahamet52@gmail.com" class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://facebook.com/twtsolutions" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-800 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-3/5 p-10 bg-white/5 backdrop-blur-sm">
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Full Name" class="w-full bg-[#0f172a] border border-gray-700 text-white p-3 rounded focus:border-[#bf953f] focus:outline-none transition">
+                            <input type="tel" placeholder="Phone Number" class="w-full bg-[#0f172a] border border-gray-700 text-white p-3 rounded focus:border-[#bf953f] focus:outline-none transition">
+                        </div>
+                        <input type="email" placeholder="Email Address" class="w-full bg-[#0f172a] border border-gray-700 text-white p-3 rounded focus:border-[#bf953f] focus:outline-none transition">
+                        <select class="w-full bg-[#0f172a] border border-gray-700 text-white p-3 rounded focus:border-[#bf953f] focus:outline-none transition">
+                            <option value="">Select Service Interested In</option>
+                            <option value="network">Network & IT Infrastructure</option>
+                            <option value="cctv">CCTV & Security Systems</option>
+                            <option value="training">Elite Waiter Training</option>
+                            <option value="digital">Digital Solutions</option>
+                        </select>
+                        <textarea rows="4" placeholder="Project Details / Requirements" class="w-full bg-[#0f172a] border border-gray-700 text-white p-3 rounded focus:border-[#bf953f] focus:outline-none transition"></textarea>
+                        <button class="w-full btn-gold text-black font-bold py-3 rounded uppercase tracking-wider text-sm hover:shadow-lg">
+                            <i class="fas fa-paper-plane mr-2"></i><span id="formBtn">Request Free Consultation</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#050b14] py-10 border-t border-[#1a2f55] text-center">
+        <div class="logo-frame mb-6" style="width: 100px; height: 100px;">
+            <!-- REPLACE THE SRC WITH YOUR ACTUAL LOGO IMAGE URL -->
+            <img src="https://via.placeholder.com/150x150/bf953f/0a192f?text=TWT+LOGO" alt="TWT Solutions Logo" class="logo-img">
+        </div>
+        
+        <h2 class="text-2xl font-bold text-white mb-2">TWT SOLUTIONS</h2>
+        <p class="text-[#bf953f] text-xs tracking-[0.3em] uppercase mb-6">Tayo waa Tamar</p>
+        
+        <div class="flex justify-center gap-6 text-gray-400 mb-8">
+            <a href="https://facebook.com/twtsolutions" class="hover:text-[#bf953f] transition text-xl"><i class="fab fa-facebook"></i></a>
+            <a href="https://wa.me/251955566999" class="hover:text-green-500 transition text-xl"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/twtsolutions" class="hover:text-blue-400 transition text-xl"><i class="fab fa-telegram"></i></a>
+            <a href="mailto:info@twtsolutions.com" class="hover:text-red-400 transition text-xl"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <div class="mb-6">
+            <p class="text-gray-400 text-sm">+251 955 566 999 | info@twtsolutions.com</p>
+        </div>
+        
+        <p class="text-gray-700 text-xs">© 2024 TWT Solutions. All Rights Reserved. | Developed by Somali-programmer</p>
     </footer>
+
+    <!-- Floating Action Buttons -->
+    <a href="https://wa.me/251955566999" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition z-50 animate-bounce">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+    
+    <a href="tel:+251955566999" class="fixed bottom-24 right-6 bg-[#bf953f] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition z-50">
+        <i class="fas fa-phone text-xl"></i>
+    </a>
 
     <script>
         let isSomali = false;
+        let activeFAQ = null;
 
         const content = {
             en: {
-                langBtn: "Somali",
-                heroTag: "Vision & Logo",
-                heroTitle: "Empowering <span class='text-gold-gradient italic'>Hospitality</span> through <br> Excellence",
-                heroSub: "Bridging the gap between traditional service excellence and modern digital innovation.",
-                ctaMain: "Start Transformation",
-                ctaSec: "Learn More",
-                aboutTitle: "Quality is <span class='text-gold-gradient'>Power</span>.",
-                aboutDesc: "At TWT Solutions, we are a premier hospitality consultancy dedicated to elevating the standards of 5-star hotels. We ensure your establishment stands out in a competitive global market.",
-                val1Title: "Elite Standards",
-                val1Desc: "Implementing international 5-star protocols tailored to the local market.",
-                val2Title: "Proven Results",
-                val2Desc: "We increase guest satisfaction scores and boost operational efficiency.",
-                serviceTag: "Core Services",
-                serviceTitle: "What We Offer",
-                srv1Title: "Elite Human Capital Training",
-                srv1List: "<li>• The Elite Server & Art of Service</li><li>• Leadership Excellence</li><li>• Emotional Intelligence</li>",
-                srv2Title: "Next-Gen Digital Solutions",
-                srv2List: "<li>• Professional Web Design</li><li>• <span class='text-white font-bold'>Smart QR-Code Menus</span></li><li>• Digital Brand Identity</li>",
-                srv3Title: "Operational Excellence",
-                srv3Desc: "Standard Operating Procedures (SOP) development to ensure consistency and quality.",
-                footerTitle: "Ready to Elevate Your Brand?",
-                footerDesc: "Don't settle for ordinary. Power your business with Tayo waa Tamar.",
-                contactBtn: "Contact Us Today"
+                heroTag: "Luxury Hospitality & Technology",
+                heroTitle: "Where <span class='text-gold-gradient'>Excellence</span><br>Meets Innovation",
+                heroSub: "Empowering 5-star establishments with elite service standards, operational power, and cutting-edge technology to dominate the global market.",
+                ctaMain: "Free Consultation",
+                ctaMenu: "View Smart Menu",
+                visionText: "To be the leading force in modernizing the hospitality sector by bridging the gap between traditional excellence and modern digital innovation.",
+                missionText: "To empower 5-star establishments with elite service standards, operational power, and cutting-edge technology to ensure they stand out in a competitive global market.",
+                aboutTag: "Our Story",
+                aboutTitle: "About TWT Solutions",
+                aboutDesc1: "TWT Solutions (Tayo waa Tamar) is a premier consultancy firm that stands at the intersection of luxury hospitality and cutting-edge technology. Founded with a vision to revolutionize East Africa's service industry, we bring together 14 years of international expertise with deep local insights.",
+                aboutDesc2: "We don't just train—we transform. Our approach combines traditional service excellence with modern digital solutions, creating a comprehensive ecosystem that empowers businesses to achieve and maintain 5-star standards in today's competitive market.",
+                aboutValue1: "Our Philosophy",
+                aboutValueDesc1: "We believe that quality service is the ultimate differentiator in the hospitality industry. Our philosophy centers on creating memorable experiences through exceptional service and innovative solutions.",
+                aboutValue2: "Our Approach",
+                aboutValueDesc2: "Tailored solutions for each client. We understand that every business is unique, and we work closely with you to develop customized strategies that align with your specific goals and challenges.",
+                aboutValue3: "Our Commitment",
+                aboutValueDesc3: "We are committed to delivering measurable results. Our success is measured by your growth, improved efficiency, and enhanced customer satisfaction.",
+                serviceTag: "Our Expertise",
+                serviceTitle: "Core Services",
+                serviceSub: "Comprehensive solutions blending luxury hospitality with advanced technology",
+                srv1Title: "Network & IT Infrastructure",
+                srv1Desc: "Professional IT infrastructure setup, maintenance, and optimization for hotels and businesses.",
+                srv2Title: "CCTV & Security Systems",
+                srv2Desc: "High-end security system solutions, surveillance installation, and comprehensive maintenance.",
+                srv3Title: "Elite Waiter Training",
+                srv3Desc: "Premium training in 5-star service protocols, etiquette, and the art of luxury hospitality.",
+                srv4Title: "Digital Solutions",
+                srv4Desc: "Professional web design, Smart QR-Code Menus, and comprehensive digital brand identity.",
+                expertsTitle: "Industry Experts",
+                expert1Role: "Founder & Lead Consultant",
+                expert1Bio: "Hospitality expert with 14+ years of international experience from Dubai's luxury sector. MBA holder and former academic leader at Jigjiga University.",
+                expert2Role: "Programmer & Tech Consultant",
+                expert2Bio: "Specializing in high-end coding, digital infrastructure, and innovative tech solutions for the modern hospitality industry.",
+                faqTag: "Common Questions",
+                faqTitle: "Frequently Asked Questions",
+                faqSub: "Find answers to common questions about our services and processes",
+                faqQ1: "What makes TWT Solutions different from other consultancy firms?",
+                faqA1: "Unlike traditional consultancy firms, we combine 14 years of international luxury hospitality experience with cutting-edge technology solutions. We provide end-to-end services, from elite staff training to digital transformation and IT infrastructure, making us a one-stop solution for modern hospitality businesses.",
+                faqQ2: "How long does it take to see results from your training programs?",
+                faqA2: "Most clients see noticeable improvements within the first 30 days. Our training programs are designed to deliver immediate practical skills while building long-term service excellence. We provide ongoing support and follow-up sessions to ensure sustained improvement.",
+                faqQ3: "Do you provide support after the initial consultation?",
+                faqA3: "Yes, we offer comprehensive post-implementation support including monthly check-ins, troubleshooting assistance, and access to our resource library. We believe in building long-term partnerships with our clients.",
+                faqQ4: "Can you work with businesses outside of Somalia?",
+                faqA4: "Absolutely! While we're based in East Africa and specialize in the local market, we have experience working with international clients. Our hybrid approach allows us to provide both in-person and remote consultations to businesses worldwide.",
+                faqQ5: "What industries do you specialize in?",
+                faqA5: "We specialize in luxury hospitality including hotels, resorts, fine dining restaurants, and premium service establishments. Our technology solutions are also applicable to businesses seeking digital transformation and modern infrastructure.",
+                contactTitle: "Get In Touch",
+                contactSub: "Ready to transform your hospitality business? Contact us for a free consultation.",
+                formBtn: "Request Free Consultation"
             },
             so: {
-                langBtn: "English",
-                heroTag: "Aragtida & Astaanta",
-                heroTitle: "Ku xooji <span class='text-gold-gradient italic'>Maamuuska</span> Tayo <br> & Hal-abuur",
-                heroSub: "Isku xidhka adeegga soo jireenka ah iyo casriyaynta dhijitaalka ah ee maanta.",
-                ctaMain: "Bilow Isbaddalka",
-                ctaSec: "Faahfaahin",
-                aboutTitle: "Tayadu waa <span class='text-gold-gradient'>Awood</span>.",
-                aboutDesc: "TWT Solutions, waxaan nahay lataliyayaal horseed u ah kor u qaadista tayada hudheelada 5-ta xiddigood. Waxaan hubinaynaa in ganacsigaagu ka dhex muuqdo suuqa caalamiga ah.",
-                val1Title: "Heerarka Sare",
-                val1Desc: "Dhaqan-gelinta habraaca caalamiga ah ee 5-ta xiddigood oo ku habboon suuqa maxalliga ah.",
-                val2Title: "Natiijooyin La Hubo",
-                val2Desc: "Waxaan kordhinaa qanacsanaanta macaamiisha iyo tayada shaqada.",
-                serviceTag: "Adeegyada Muhiimka ah",
-                serviceTitle: "Waxaan Bixinaa",
-                srv1Title: "Tababarka Shaqaalaha Sare",
-                srv1List: "<li>• Adeegaha Sare & Farshaxanka Adeegga</li><li>• Hogaaminta Sare</li><li>• Garaadka Dareenka (Emotional Intelligence)</li>",
-                srv2Title: "Xalalka Dhijitaalka ah",
-                srv2List: "<li>• Nashqadaynta Webka Casriga ah</li><li>• <span class='text-white font-bold'>QR-Code Menus Caqli badan</span></li><li>• Aqoonsiga Summada Dijitaalka ah</li>",
-                srv3Title: "Wanaagga Hawlgalka",
-                srv3Desc: "Horumarinta Nidaamka Hawlgalka (SOP) si loo xaqiijiyo joogtaynta iyo tayada.",
-                footerTitle: "Diyaar ma u tahay inaad Kobciso Summadaada?",
-                footerDesc: "Ha aqbalin wax caadi ah. Awood u yeelo ganacsigaaga Tayo Waa Tamar.",
-                contactBtn: "Nala Soo Xiriir Maanta"
+                heroTag: "Hudheel Qaaliga ah & Teknooloji",
+                heroTitle: "Halka <span class='text-gold-gradient'>Tayada Sare</span><br>La Kulanto Cusboonaysiinta",
+                heroSub: "Siiyeeya hudheelada 5-xiddiga awood, qaabka adeegga sare, iyo teknoolojiyada casriga ah si ay u tartamaan suuqyada caalamiga ah.",
+                ctaMain: "La-taliye Bilaash ah",
+                ctaMenu: "Eeg Menu-ga Smart-ka",
+                visionText: "Inaan noqonno hoggaamiyaha ugu wanaagsan ee casriyeynta warshadaha hudheelada adoo jidka u wada dhex marnaya tayada dhaqameedka iyo cusboonaysiinta dijitaalka casriga ah.",
+                missionText: "Siiyeeya hudheelada 5-xiddiga awood, qaabka adeegga sare, iyo teknoolojiyada casriga ah si ay u ka soo baxaan suuqyada tartanka caalamiga ah.",
+                aboutTag: "Sheekadeena",
+                aboutTitle: "Ku Saabsan TWT Solutions",
+                aboutDesc1: "TWT Solutions (Tayo waa Tamar) waa shirkad la-talin oo hormuud ah oo taagan isku geeska hudheelada qaaliga ah iyo teknoolojiyada casriga ah. La aasaasay si loogu beddelo warshadaha adeegga ee Geeska Afrika, waxaan ku wada haynaa 14 sano oo khibrad caalami ah iyo aqoon dhab ah oo maxalliga ah.",
+                aboutDesc2: "Kaliya ma tababarno—waan badalnaa. Habkeena wuxuu ku wada darsayaa tayada adeegga dhaqameedka iyo xalalka dijitaalka casriga ah, abuuraya nidaam guud oo awood siiya ganacsiyada si ay u gaaraan oo u haystaan heerarka 5-xiddiga ee suuqa tartanka ee maanta.",
+                aboutValue1: "Falsafadeena",
+                aboutValueDesc1: "Waxaan rumaysannahay in adeegga tayo sare uu yahay kala duwanaanshaha ugu dambeeya ee warshadaha hudheelada. Falsafadeena waxay ku xidhan tahay abuurista waayo-aragnimo xasuus badan adoo adeegyo gaar ah iyo xalalo cusub adeegsanaya.",
+                aboutValue2: "Habkeena",
+                aboutValueDesc2: "Xalalo la waafajiyay macamiil kasta. Waxaan fahamsannahay in ganacsi kasta uu gaar u yahay, waxaana ka shaqaynaa si dhow adiga si aan ugu hirgelino xeelado gaar ah oo ku habboon ujeeddadaada gaarka ah iyo caqabadahaaga.",
+                aboutValue3: "Ballankeena",
+                aboutValueDesc3: "Waxaan ku himilnay inaan soo saarno natiijooyin la cabbiro karo. Guushaadana waxaa lagu cabbiraa koritaankaada, hagaajinta waxtarka, iyo kor u qaadista qanacsanaanta macmiilka.",
+                serviceTag: "Khibraddeena",
+                serviceTitle: "Adeegyada Aasaasiga ah",
+                serviceSub: "Xalalo buuxda oo ku wada darsanaya hudheelada qaaliga ah iyo teknoolojiyada horumarineysa",
+                srv1Title: "Shabakad & Qalabka IT-ga",
+                srv1Desc: "Dejinta, dayactirka, iyo hagaajinta qalabka IT-ga ee hudheelada iyo ganacsiyada.",
+                srv2Title: "CCTV & Nidaamyada Amniga",
+                srv2Desc: "Xalalka nidaamka amniga ee heer sare, rakibaadda daawashada, iyo dayactirka buuxa.",
+                srv3Title: "Tarbiyada Adeegga Sare",
+                srv3Desc: "Tarbiyo gaar ah oo ku saabsan qawaaniinta adeegga 5-xiddiga, edebta, iyo farsamada hudheelada qaaliga ah.",
+                srv4Title: "Xalalka Dijitaalka ah",
+                srv4Desc: "Nashqadeynta website-ka professional-ka ah, Menuyada QR-Code smart-ka ah, iyo aqoonsiga summada dijitaalka ah.",
+                expertsTitle: "Khabiirrada Warshadaha",
+                expert1Role: "Aasaasaha & La-taliyaha Sare",
+                expert1Bio: "Khabiir ku takhasusay hudheelada 14+ sano oo khibrad caalami ah oo ka yimid Dubai. MBA iyo hogaamiye akadeemi hore ee Jaamacadda Jigjiga.",
+                expert2Role: "Barnaamijaha & La-taliyaha Teknoolojiyada",
+                expert2Bio: "Ku takhasusay qoraalka koodhada heer sare, dhismaha dijitaalka, iyo xalalka teknoolojiyada cusub ee warshadaha hudheelada casriga ah.",
+                faqTag: "Su'aalaha Guud",
+                faqTitle: "Su'aalaha Inta Badan La Is Weydiiyo",
+                faqSub: "Hel jawaabo su'aalaha guud ee ku saabsan adeegyadeena iyo hababkeena",
+                faqQ1: "Maxaa ka duwan TWT Solutions shirkadaha la-talinada kale?",
+                faqA1: "Ka duwan shirkadaha la-talinada dhaqameedka, waxaan ku wada darsanaynaa 14 sano oo khibrad hudheel qaaliga ah oo caalami ah iyo xalalka teknoolojiyada casriga ah. Waxaan bixinaa adeegyada ilaa dhamaadka, laga bilaabo tababarka shaqaalaha heer sare ilaa isbeddellada dijitaalka iyo qalabka IT-ga, ka dhigeena xal hal meel lagu helo oo loogu talagalay ganacsiyada hudheelada casriga ah.",
+                faqQ2: "Immisa muddo ayaa la qaadaa si loo arko natiijooyin tababarkeenna?",
+                faqA2: "Macamiisha badan waxay arkaan horumarin la arki karo gudahooda 30 maalin ee ugu horreeya. Barnaamijyadeena tababarka waxaa loo nashqaday si ay u keenaan xirfado degdeg ah iyagoo dhisaya tayada adeegga muddo dheer. Waxaan bixinaa taageero joogto ah iyo kulanno raacaya si loo hubiyo horumar joogto ah.",
+                faqQ3: "Ma bixisaan taageero ka dib la-talinada bilowga?",
+                faqA3: "Haa, waxaan bixinaa taageero buuxa oo ka dib dhaqangelinta oo ay ku jiraan hubinta bishii, kaalmada xal xumaadka, iyo helitaanka kutubtaada ilaha. Waxaan rumaysannahay inaan la dhisanno shuraako muddo dheer oo macamiilada.",
+                faqQ4: "Ma shaqayn kartaan ganacsiyada ka baxsan Soomaaliya?",
+                faqA4: "Hubaal! Inkastoo aan ka shaqaynno Geeska Afrika oo aan ku khasbanaano suuqa maxalliga ah, waxaan haystaa khibrad ka shaqaynta macamiisha caalami ah. Habkeena isku dhex-dhexaadka ah wuxuu noo ogolaanayaa inaan bixino la-talinada foolka iyo khadka tooska ah ganacsiyada adduunka oo dhan.",
+                faqQ5: "Waa kuwee warshadaha aad ku khasban tihiin?",
+                faqA5: "Waxaan ku khasbanahay hudheelada qaaliga ah oo ay ku jiraan hudheelada, huteelada, macaamiisha cuntooyinka fiican, iyo goobaha adeegga gaarka ah. Xalalka teknoolojiyadeena sidoo kale waa kuwo loo adeegsan karo ganacsiyada raadinaya isbeddellada dijitaalka iyo qalabka casriga ah.",
+                contactTitle: "Nala Xiriir",
+                contactSub: "Diyaar ma u tahay inaad beddesho ganacsiga hudheelkaaga? Nala soo xiriir si aad u hesho la-taliye bilaash ah.",
+                formBtn: "Codsiga La-taliyaha Bilaashka ah"
             }
         };
 
         function toggleLanguage() {
             isSomali = !isSomali;
             const lang = isSomali ? content.so : content.en;
+            const btn = document.getElementById('langBtn');
 
-            // Fade out effect
-            document.body.style.opacity = '0.8';
-
+            // Fade Effect
+            document.body.style.opacity = '0.5';
+            
             setTimeout(() => {
-                document.getElementById('langText').innerText = lang.langBtn;
-                document.getElementById('heroTag').innerText = lang.heroTag;
-                document.getElementById('heroTitle').innerHTML = lang.heroTitle;
-                document.getElementById('heroSub').innerText = lang.heroSub;
-                document.getElementById('ctaMain').innerText = lang.ctaMain;
-                document.getElementById('ctaSec').innerText = lang.ctaSec;
-                document.getElementById('aboutTitle').innerHTML = lang.aboutTitle;
-                document.getElementById('aboutDesc').innerText = lang.aboutDesc;
-                document.getElementById('val1Title').innerText = lang.val1Title;
-                document.getElementById('val1Desc').innerText = lang.val1Desc;
-                document.getElementById('val2Title').innerText = lang.val2Title;
-                document.getElementById('val2Desc').innerText = lang.val2Desc;
-                document.getElementById('serviceTag').innerText = lang.serviceTag;
-                document.getElementById('serviceTitle').innerText = lang.serviceTitle;
-                document.getElementById('srv1Title').innerText = lang.srv1Title;
-                document.getElementById('srv1List').innerHTML = lang.srv1List;
-                document.getElementById('srv2Title').innerText = lang.srv2Title;
-                document.getElementById('srv2List').innerHTML = lang.srv2List;
-                document.getElementById('srv3Title').innerText = lang.srv3Title;
-                document.getElementById('srv3Desc').innerText = lang.srv3Desc;
-                document.getElementById('footerTitle').innerText = lang.footerTitle;
-                document.getElementById('footerDesc').innerText = lang.footerDesc;
-                document.getElementById('contactBtn').innerText = lang.contactBtn;
+                btn.innerText = isSomali ? "SO / EN" : "EN / SO";
+                
+                // Update all translatable elements
+                Object.keys(lang).forEach(key => {
+                    const el = document.getElementById(key);
+                    if(el) {
+                        if(key.includes('Desc') || key.includes('Bio') || key.includes('Text') || key.includes('Sub')) {
+                            el.textContent = lang[key];
+                        } else if(key.includes('A')) {
+                            // FAQ Answers
+                            el.textContent = lang[key];
+                        } else {
+                            el.innerHTML = lang[key];
+                        }
+                    }
+                });
 
                 document.body.style.opacity = '1';
             }, 200);
         }
+
+        function toggleFAQ(faqNumber) {
+            const question = document.querySelector(`.faq-question:nth-child(${faqNumber * 2 - 1})`);
+            const answer = document.querySelector(`.faq-answer:nth-child(${faqNumber * 2})`);
+            const icon = question.querySelector('.faq-icon');
+            
+            // Close previously open FAQ
+            if (activeFAQ && activeFAQ !== answer) {
+                const prevQuestion = activeFAQ.previousElementSibling;
+                const prevIcon = prevQuestion.querySelector('.faq-icon');
+                activeFAQ.classList.remove('open');
+                prevQuestion.classList.remove('active');
+                prevIcon.style.transform = 'rotate(0deg)';
+            }
+            
+            // Toggle current FAQ
+            if (activeFAQ === answer) {
+                answer.classList.remove('open');
+                question.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+                activeFAQ = null;
+            } else {
+                answer.classList.add('open');
+                question.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+                activeFAQ = answer;
+            }
+        }
+
+        // Initialize first FAQ as open
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open first FAQ by default
+            toggleFAQ(1);
+            
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
