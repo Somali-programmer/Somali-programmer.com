@@ -104,28 +104,35 @@
             background: linear-gradient(to right, #bf953f, #fcf6ba, #bf953f);
         }
         
-        /* FAQ ACCORDION STYLES */
+        /* FAQ ACCORDION STYLES - FIXED */
         .faq-item {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
         }
         .faq-question {
             cursor: pointer;
-            padding: 20px 0;
+            padding: 20px;
             transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .faq-question:hover {
             color: #bf953f;
         }
         .faq-icon {
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
         .faq-answer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease;
+            padding: 0 20px;
         }
         .faq-answer.open {
             max-height: 500px;
+            padding-bottom: 20px;
         }
         .faq-question.active .faq-icon {
             transform: rotate(180deg);
@@ -134,12 +141,13 @@
 </head>
 <body class="overflow-x-hidden">
 
+    <!-- NAVIGATION (Same as before) -->
     <nav class="fixed w-full z-50 bg-[#0a192f]/95 backdrop-blur-md border-b border-gray-800 transition-all shadow-lg">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-2 group">
                 <div class="nav-logo">
                     <!-- REPLACE THE SRC WITH YOUR ACTUAL LOGO IMAGE URL -->
-                    <img src="https://via.placeholder.com/150x150/bf953f/0a192f?text=TWT+LOGO" alt="TWT Solutions Logo" class="logo-img">
+                    <img src="https://drive.google.com/file/d/1Er2ikJpc6MWvg_9a_1j7zQgQHOktB0Yu/view?usp=drivesdk" alt="TWT Solutions Logo" class="logo-img">
                 </div>
                 <div class="flex flex-col">
                     <span class="text-xl md:text-2xl font-bold tracking-widest text-white leading-none">TWT</span>
@@ -164,6 +172,7 @@
         </div>
     </nav>
 
+    <!-- HEADER (Same as before) -->
     <header class="relative h-screen flex items-center justify-center text-center px-4">
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-20"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0a192f]/80 to-[#0a192f]/50"></div>
@@ -194,7 +203,10 @@
         </div>
     </header>
 
-    <section id="vision" class="py-24 bg-[#0a192f] relative overflow-hidden">
+    <!-- VISION, ABOUT, SERVICES, EXPERTS SECTIONS (Same as before) -->
+    <!-- ... [Previous sections remain the same] ... -->
+
+<section id="vision" class="py-24 bg-[#0a192f] relative overflow-hidden">
         <div class="absolute -right-20 top-20 w-64 h-64 bg-[#bf953f] rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
         
         <div class="container mx-auto px-6">
@@ -390,7 +402,7 @@
                 <!-- Expert 2 -->
                 <div class="glass-card p-8 rounded-2xl text-center">
                     <div class="w-32 h-32 mx-auto bg-gray-800 rounded-full border-2 border-blue-500 p-1 mb-6 overflow-hidden">
-                        <img src="mawllitmo.jpg" class="w-full h-full object-cover rounded-full">
+                        <img src"mawllitmo.jpg" class="w-full h-full object-cover rounded-full">
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-1">Mawliid Mahamed Abdi</h3>
                     <p id="expert2Role" class="text-blue-400 uppercase tracking-widest text-xs mb-6">Programmer & Tech Consultant</p>
@@ -407,6 +419,7 @@
         </div>
     </section>
 
+    <!-- UPDATED FAQ SECTION WITH FIXED JAVASCRIPT -->
     <section id="faq" class="py-24 bg-[#0a192f] border-t border-gray-800">
         <div class="container mx-auto px-6 max-w-4xl">
             <div class="text-center mb-16">
@@ -418,14 +431,14 @@
             <div class="space-y-4">
                 <!-- FAQ 1 -->
                 <div class="faq-item glass-card rounded-xl">
-                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(1)">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
                         <h3 id="faqQ1" class="text-lg font-bold text-white">What makes TWT Solutions different from other consultancy firms?</h3>
-                        <span class="faq-icon text-[#bf953f]">
+                        <span class="faq-icon text-[#bf953f] ml-4">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </div>
-                    <div class="faq-answer px-6">
-                        <p id="faqA1" class="text-gray-300 pb-6 leading-relaxed">
+                    <div class="faq-answer" id="faqAnswer1">
+                        <p id="faqA1" class="text-gray-300 leading-relaxed">
                             Unlike traditional consultancy firms, we combine 14 years of international luxury hospitality experience with cutting-edge technology solutions. We provide end-to-end services, from elite staff training to digital transformation and IT infrastructure, making us a one-stop solution for modern hospitality businesses.
                         </p>
                     </div>
@@ -433,14 +446,14 @@
 
                 <!-- FAQ 2 -->
                 <div class="faq-item glass-card rounded-xl">
-                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(2)">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
                         <h3 id="faqQ2" class="text-lg font-bold text-white">How long does it take to see results from your training programs?</h3>
-                        <span class="faq-icon text-[#bf953f]">
+                        <span class="faq-icon text-[#bf953f] ml-4">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </div>
-                    <div class="faq-answer px-6">
-                        <p id="faqA2" class="text-gray-300 pb-6 leading-relaxed">
+                    <div class="faq-answer" id="faqAnswer2">
+                        <p id="faqA2" class="text-gray-300 leading-relaxed">
                             Most clients see noticeable improvements within the first 30 days. Our training programs are designed to deliver immediate practical skills while building long-term service excellence. We provide ongoing support and follow-up sessions to ensure sustained improvement.
                         </p>
                     </div>
@@ -448,14 +461,14 @@
 
                 <!-- FAQ 3 -->
                 <div class="faq-item glass-card rounded-xl">
-                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(3)">
+                    <div class="faq-question" onclick="toggleFAQ(3)">
                         <h3 id="faqQ3" class="text-lg font-bold text-white">Do you provide support after the initial consultation?</h3>
-                        <span class="faq-icon text-[#bf953f]">
+                        <span class="faq-icon text-[#bf953f] ml-4">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </div>
-                    <div class="faq-answer px-6">
-                        <p id="faqA3" class="text-gray-300 pb-6 leading-relaxed">
+                    <div class="faq-answer" id="faqAnswer3">
+                        <p id="faqA3" class="text-gray-300 leading-relaxed">
                             Yes, we offer comprehensive post-implementation support including monthly check-ins, troubleshooting assistance, and access to our resource library. We believe in building long-term partnerships with our clients.
                         </p>
                     </div>
@@ -463,14 +476,14 @@
 
                 <!-- FAQ 4 -->
                 <div class="faq-item glass-card rounded-xl">
-                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(4)">
+                    <div class="faq-question" onclick="toggleFAQ(4)">
                         <h3 id="faqQ4" class="text-lg font-bold text-white">Can you work with businesses outside of Somalia?</h3>
-                        <span class="faq-icon text-[#bf953f]">
+                        <span class="faq-icon text-[#bf953f] ml-4">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </div>
-                    <div class="faq-answer px-6">
-                        <p id="faqA4" class="text-gray-300 pb-6 leading-relaxed">
+                    <div class="faq-answer" id="faqAnswer4">
+                        <p id="faqA4" class="text-gray-300 leading-relaxed">
                             Absolutely! While we're based in East Africa and specialize in the local market, we have experience working with international clients. Our hybrid approach allows us to provide both in-person and remote consultations to businesses worldwide.
                         </p>
                     </div>
@@ -478,14 +491,14 @@
 
                 <!-- FAQ 5 -->
                 <div class="faq-item glass-card rounded-xl">
-                    <div class="faq-question flex justify-between items-center p-6" onclick="toggleFAQ(5)">
+                    <div class="faq-question" onclick="toggleFAQ(5)">
                         <h3 id="faqQ5" class="text-lg font-bold text-white">What industries do you specialize in?</h3>
-                        <span class="faq-icon text-[#bf953f]">
+                        <span class="faq-icon text-[#bf953f] ml-4">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </div>
-                    <div class="faq-answer px-6">
-                        <p id="faqA5" class="text-gray-300 pb-6 leading-relaxed">
+                    <div class="faq-answer" id="faqAnswer5">
+                        <p id="faqA5" class="text-gray-300 leading-relaxed">
                             We specialize in luxury hospitality including hotels, resorts, fine dining restaurants, and premium service establishments. Our technology solutions are also applicable to businesses seeking digital transformation and modern infrastructure.
                         </p>
                     </div>
@@ -494,6 +507,7 @@
         </div>
     </section>
 
+    <!-- CONTACT SECTION (Same as before) -->
     <section id="contact" class="py-24 bg-[#0f172a] relative">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="bg-gradient-to-br from-[#0a192f] to-[#1e293b] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-800 glass-effect">
@@ -581,10 +595,10 @@
         </div>
         
         <div class="mb-6">
-            <p class="text-gray-400 text-sm">+251 955 566 999 | info@twtsolutions.com</p>
+            <p class="text-gray-400 text-sm">+251 955 566 999 | mawliit.mahamet52@gmail.com</p>
         </div>
         
-        <p class="text-gray-700 text-xs">© 2024 TWT Solutions. All Rights Reserved. | Developed by Somali-programmer</p>
+        <p class="text-gray-700 text-xs">© 2026 TWT Solutions. All Rights Reserved. | Developed by Somali-programmer</p>
     </footer>
 
     <!-- Floating Action Buttons -->
@@ -599,6 +613,39 @@
     <script>
         let isSomali = false;
         let activeFAQ = null;
+
+        // FIXED FAQ FUNCTION - SIMPLER AND MORE RELIABLE
+        function toggleFAQ(faqNumber) {
+            const answer = document.getElementById(`faqAnswer${faqNumber}`);
+            const question = document.querySelector(`[onclick="toggleFAQ(${faqNumber})"]`);
+            const icon = question.querySelector('.faq-icon i');
+            
+            if (!answer || !question) return;
+            
+            // Close previously open FAQ
+            if (activeFAQ && activeFAQ !== answer) {
+                const prevAnswer = activeFAQ;
+                const prevQuestion = prevAnswer.parentElement.querySelector('.faq-question');
+                const prevIcon = prevQuestion.querySelector('.faq-icon i');
+                
+                prevAnswer.classList.remove('open');
+                prevQuestion.classList.remove('active');
+                prevIcon.style.transform = 'rotate(0deg)';
+            }
+            
+            // Toggle current FAQ
+            if (activeFAQ === answer) {
+                answer.classList.remove('open');
+                question.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+                activeFAQ = null;
+            } else {
+                answer.classList.add('open');
+                question.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+                activeFAQ = answer;
+            }
+        }
 
         const content = {
             en: {
@@ -720,10 +767,7 @@
                 Object.keys(lang).forEach(key => {
                     const el = document.getElementById(key);
                     if(el) {
-                        if(key.includes('Desc') || key.includes('Bio') || key.includes('Text') || key.includes('Sub')) {
-                            el.textContent = lang[key];
-                        } else if(key.includes('A')) {
-                            // FAQ Answers
+                        if(key.includes('Desc') || key.includes('Bio') || key.includes('Text') || key.includes('Sub') || key.includes('A')) {
                             el.textContent = lang[key];
                         } else {
                             el.innerHTML = lang[key];
@@ -735,38 +779,21 @@
             }, 200);
         }
 
-        function toggleFAQ(faqNumber) {
-            const question = document.querySelector(`.faq-question:nth-child(${faqNumber * 2 - 1})`);
-            const answer = document.querySelector(`.faq-answer:nth-child(${faqNumber * 2})`);
-            const icon = question.querySelector('.faq-icon');
-            
-            // Close previously open FAQ
-            if (activeFAQ && activeFAQ !== answer) {
-                const prevQuestion = activeFAQ.previousElementSibling;
-                const prevIcon = prevQuestion.querySelector('.faq-icon');
-                activeFAQ.classList.remove('open');
-                prevQuestion.classList.remove('active');
-                prevIcon.style.transform = 'rotate(0deg)';
-            }
-            
-            // Toggle current FAQ
-            if (activeFAQ === answer) {
-                answer.classList.remove('open');
-                question.classList.remove('active');
-                icon.style.transform = 'rotate(0deg)';
-                activeFAQ = null;
-            } else {
-                answer.classList.add('open');
-                question.classList.add('active');
-                icon.style.transform = 'rotate(180deg)';
-                activeFAQ = answer;
-            }
-        }
-
-        // Initialize first FAQ as open
+        // Initialize first FAQ as open when page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Open first FAQ by default
-            toggleFAQ(1);
+            setTimeout(() => {
+                const firstAnswer = document.getElementById('faqAnswer1');
+                const firstQuestion = document.querySelector('[onclick="toggleFAQ(1)"]');
+                const firstIcon = firstQuestion.querySelector('.faq-icon i');
+                
+                if (firstAnswer && firstQuestion) {
+                    firstAnswer.classList.add('open');
+                    firstQuestion.classList.add('active');
+                    firstIcon.style.transform = 'rotate(180deg)';
+                    activeFAQ = firstAnswer;
+                }
+            }, 100);
             
             // Smooth scroll for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
