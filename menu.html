@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZWRTGNC4C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DZWRTGNC4C');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWT Solutions | Smart Digital Menu</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="TWT Solutions | Smart Digital Menu">
+    <meta name="description"
+        content="Experience our curated selection of gourmet dishes and premium beverages with our Smart Digital Menu. Scan and enjoy luxury hospitality.">
+    <meta name="keywords" content="digital menu, smart menu, hospitality, luxury, QR code menu, TWT Solutions">
+    <meta name="author" content="Mawliid Mahamed Abdi">
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://somali-programmer.github.io/Somali-programmer.com/menu.html">
+    <meta property="og:title" content="TWT Solutions | Smart Digital Menu">
+    <meta property="og:description"
+        content="Experience our luxury hospitality at your fingertips. Discover our gourmet selection through our smart digital menu.">
+    <meta property="og:image" content="https://somali-programmer.github.io/Somali-programmer.com/logo.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TWT Solutions | Smart Digital Menu">
+    <meta name="twitter:description" content="Luxury dining made digital. Explore our curated menu with a simple scan.">
+    <meta name="twitter:image" content="https://somali-programmer.github.io/Somali-programmer.com/logo.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="apple-touch-icon" href="favicon.jpg">
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-primary: #bf953f;
+            --gold-secondary: #aa771c;
+            --gold-light: #fcf6ba;
+            --navy-dark: #0a192f;
+            --navy-light: #0f172a;
+            --slate-600: #475569;
+            --slate-800: #1e293b;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--navy-light);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-gold-gradient {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(191, 149, 63, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .menu-category {
+            scroll-margin-top: 120px;
+        }
+
+        .menu-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--gold-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .popular-badge {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            box-shadow: 0 2px 10px rgba(191, 149, 63, 0.3);
+        }
+
+        .qr-code-wrapper {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-code-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        canvas {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Revealed animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--slate-800);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-primary);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#0a192f]/95 backdrop-blur-md border-b border-gray-800 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-[#bf953f] via-[#fcf6ba] to-[#aa771c] rounded-xl flex items-center justify-center text-[#0a192f] font-bold text-2xl group-hover:scale-110 transition-transform duration-500 shadow-xl">
+                    T</div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-bold tracking-widest text-white leading-tight">TWT</span>
+                    <span class="text-[10px] text-[#bf953f] tracking-[0.4em] uppercase font-bold">Smart Menu</span>
+                </div>
+            </a>
+
+            <div class="hidden md:flex gap-6 text-sm uppercase tracking-wider font-semibold text-gray-300">
+                <a href="#starters" class="hover:text-[#bf953f] transition">Starters</a>
+                <a href="#main" class="hover:text-[#bf953f] transition">Main Course</a>
+                <a href="#desserts" class="hover:text-[#bf953f] transition">Desserts</a>
+                <a href="#drinks" class="hover:text-[#bf953f] transition">Drinks</a>
+                <a href="#qr" class="hover:text-[#bf953f] transition">QR Code</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLanguage()"
+                    class="flex items-center gap-2 text-xs uppercase tracking-widest border border-[#bf953f] text-[#bf953f] px-3 py-1 rounded-full hover:bg-[#bf953f] hover:text-[#0a192f] transition">
+                    EN / SO
+                </button>
+                <a href="index.html"
+                    class="hidden md:block text-xs uppercase tracking-widest border border-blue-500 text-blue-400 px-3 py-1 rounded-full hover:bg-blue-500 hover:text-white transition">
+                    Back to Site
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-40 pb-20 text-center px-4 relative overflow-hidden">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--gold-primary)_0%,_transparent_70%)] opacity-[0.03] pointer-events-none">
+        </div>
+        <div class="container mx-auto max-w-4xl relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 reveal">
+                <span class="text-gold-gradient">Digital Luxury</span> Menu
+            </h1>
+            <p class="text-gray-300 text-xl mb-10 max-w-2xl mx-auto leading-relaxed reveal">
+                Experience our curated selection of gourmet dishes and premium beverages. Scan the QR code to access
+                this menu on your device.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-6 mb-8 reveal">
+                <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <div class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                    <span class="text-sm font-medium">Vegetarian</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                    <span class="text-sm font-medium">Spicy</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    <span class="text-sm font-medium">Chef's Choice</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Categories Navigation -->
+    <div class="sticky top-20 z-40 bg-[#0a192f]/95 backdrop-blur-md py-4 border-y border-gray-800 shadow-xl">
+        <div class="container mx-auto px-6">
+            <div class="flex overflow-x-auto gap-4 md:gap-8 text-sm font-bold no-scrollbar pb-1">
+                <a href="#starters"
+                    class="flex-shrink-0 px-6 py-2 rounded-full bg-[#1e293b] text-gray-400 hover:text-white transition-all duration-300 whitespace-nowrap">Starters</a>
+                <a href="#main"
+                    class="flex-shrink-0 px-6 py-2 rounded-full bg-[#1e293b] text-gray-400 hover:text-white transition-all duration-300 whitespace-nowrap">Main
+                    Course</a>
+                <a href="#seafood"
+                    class="flex-shrink-0 px-6 py-2 rounded-full bg-[#1e293b] text-gray-400 hover:text-white transition-all duration-300 whitespace-nowrap">Seafood</a>
+                <a href="#desserts"
+                    class="flex-shrink-0 px-6 py-2 rounded-full bg-[#1e293b] text-gray-400 hover:text-white transition-all duration-300 whitespace-nowrap">Desserts</a>
+                <a href="#drinks"
+                    class="flex-shrink-0 px-6 py-2 rounded-full bg-[#1e293b] text-gray-400 hover:text-white transition-all duration-300 whitespace-nowrap">Drinks</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Content -->
+    <main class="container mx-auto px-4 md:px-6 py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Column - Menu Items -->
+            <div class="lg:col-span-2">
+                <!-- Starters -->
+                <section id="starters" class="menu-category mb-24 reveal">
+                    <div class="flex items-center gap-6 mb-12">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-2xl shadow-lg shadow-[#bf953f]/20">
+                            <i class="fas fa-utensils text-white"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-bold text-white tracking-tight">Starters & Appetizers</h2>
+                            <p class="text-[#bf953f] font-medium tracking-widest uppercase text-xs mt-1">Light
+                                beginnings to awaken your palate</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Menu Item 1 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="popular-badge">Chef's Choice</div>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Truffle Arancini <span
+                                            class="veg"></span></h3>
+                                    <p class="text-gray-400 text-sm mb-3">Crispy risotto balls infused with black
+                                        truffle, served with saffron aioli</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Vegetarian</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Gluten
+                                            Free</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$18</div>
+                            </div>
+                        </div>
+
+                        <!-- Menu Item 2 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Lobster Bisque <span
+                                            class="spicy"></span></h3>
+                                    <p class="text-gray-400 text-sm mb-3">Creamy bisque with fresh Atlantic lobster,
+                                        brandy, and a hint of chili</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Spicy</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Contains
+                                            Shellfish</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$24</div>
+                            </div>
+                        </div>
+
+                        <!-- Menu Item 3 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Heritage Tomato Burrata <span
+                                            class="veg"></span></h3>
+                                    <p class="text-gray-400 text-sm mb-3">Heirloom tomatoes, creamy burrata, basil oil,
+                                        aged balsamic reduction</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Vegetarian</span>
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Dairy</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$16</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Course -->
+                <section id="main" class="menu-category mb-24 reveal">
+                    <div class="flex items-center gap-6 mb-12">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-2xl shadow-lg shadow-[#bf953f]/20">
+                            <i class="fas fa-drumstick-bite text-white"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-bold text-white tracking-tight">Main Course</h2>
+                            <p class="text-[#bf953f] font-medium tracking-widest uppercase text-xs mt-1">Signature
+                                dishes crafted to perfection</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Menu Item 1 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="popular-badge">Most Popular</div>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Wagyu Beef Tenderloin</h3>
+                                    <p class="text-gray-400 text-sm mb-3">Australian Wagyu MB 6+, truffle mashed
+                                        potatoes, grilled asparagus, red wine jus</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Premium</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Gluten
+                                            Free Option</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$68</div>
+                            </div>
+                        </div>
+
+                        <!-- Menu Item 2 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Herb-Crusted Rack of Lamb <span
+                                            class="spicy"></span></h3>
+                                    <p class="text-gray-400 text-sm mb-3">New Zealand lamb with rosemary crust, roasted
+                                        root vegetables, mint jus</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Spicy</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Halal
+                                            Option</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$52</div>
+                            </div>
+                        </div>
+
+                        <!-- Menu Item 3 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Wild Mushroom Risotto <span
+                                            class="veg"></span></h3>
+                                    <p class="text-gray-400 text-sm mb-3">Arborio rice with foraged mushrooms, white
+                                        wine, parmesan, truffle oil</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Vegetarian</span>
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Dairy</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$32</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seafood -->
+                <section id="seafood" class="menu-category mb-24 reveal">
+                    <div class="flex items-center gap-6 mb-12">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-2xl shadow-lg shadow-[#bf953f]/20">
+                            <i class="fas fa-fish text-white"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-bold text-white tracking-tight">Ocean Fresh Seafood</h2>
+                            <p class="text-[#bf953f] font-medium tracking-widest uppercase text-xs mt-1">Daily catches
+                                from sustainable sources</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Menu Item 1 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Atlantic Salmon</h3>
+                                    <p class="text-gray-400 text-sm mb-3">Pan-seared salmon, lemon butter sauce,
+                                        seasonal vegetables, dill potatoes</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Omega-3
+                                            Rich</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Gluten
+                                            Free</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$42</div>
+                            </div>
+                        </div>
+
+                        <!-- Menu Item 2 -->
+                        <div class="menu-item glass-card p-6 rounded-xl relative">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Lobster Thermidor</h3>
+                                    <p class="text-gray-400 text-sm mb-3">Whole Maine lobster, creamy mustard sauce,
+                                        gruyère cheese, herb breadcrumbs</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Luxury</span>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-[#1e293b] text-gray-300">Contains
+                                            Shellfish</span>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-[#bf953f]">$78</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - QR Code & Info -->
+            <div class="lg:col-span-1">
+                <!-- QR Code Section -->
+                <div id="qr" class="glass-card p-8 rounded-3xl mb-8 sticky top-32 reveal">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold text-white mb-3">Table Access</h3>
+                        <p class="text-gray-400 text-sm">Share this menu with your fellow diners</p>
+                    </div>
+
+                    <!-- QR Code Container -->
+                    <div class="flex flex-col items-center">
+                        <div class="qr-code-wrapper mb-8">
+                            <div id="qrcode"></div>
+                        </div>
+
+                        <!-- Instructions -->
+                        <div class="grid grid-cols-3 gap-4 mb-8 w-full border-t border-white/10 pt-8">
+                            <div class="text-center">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#bf953f]/20 flex items-center justify-center text-[#bf953f] mx-auto mb-2">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">Open Camera</p>
+                            </div>
+                            <div class="text-center">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#bf953f]/20 flex items-center justify-center text-[#bf953f] mx-auto mb-2">
+                                    <i class="fas fa-expand"></i>
+                                </div>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">Focus QR</p>
+                            </div>
+                            <div class="text-center">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#bf953f]/20 flex items-center justify-center text-[#bf953f] mx-auto mb-2">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">Tap Link</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-4 w-full">
+                            <button onclick="downloadQRCode()"
+                                class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#bf953f] to-[#aa771c] text-white py-3 rounded-xl hover:shadow-[0_0_20px_rgba(191,149,63,0.4)] transition-all font-bold">
+                                <i class="fas fa-download"></i>
+                                <span>Download QR</span>
+                            </button>
+
+                            <button onclick="shareLink()"
+                                class="w-full flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-3 rounded-xl hover:bg-white/10 transition-all font-semibold">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share Link</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <p class="text-[10px] text-gray-500 uppercase mb-1">Direct Link</p>
+                            <p id="menu-url" class="text-xs text-[#bf953f] font-mono truncate max-w-full px-4"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dietary Information -->
+                <div class="glass-card p-6 rounded-xl mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">Dietary Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                                <i class="fas fa-leaf text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-white">Vegetarian Options</p>
+                                <p class="text-gray-400 text-sm">Suitable for vegetarians</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
+                                <i class="fas fa-pepper-hot text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-white">Spicy Dishes</p>
+                                <p class="text-gray-400 text-sm">Indicates spicy items</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                                <i class="fas fa-star text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-white">Chef's Special</p>
+                                <p class="text-gray-400 text-sm">Signature dishes</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center">
+                                <i class="fas fa-seedling text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-white">Gluten Free</p>
+                                <p class="text-gray-400 text-sm">Available on request</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Info -->
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-2xl font-bold text-white mb-4">Restaurant Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-clock text-[#bf953f] mt-1"></i>
+                            <div>
+                                <p class="font-medium text-white">Opening Hours</p>
+                                <p class="text-gray-400 text-sm">Mon-Sun: 6:00 PM - 11:00 PM</p>
+                                <p class="text-gray-400 text-sm">Brunch: Sat-Sun: 10:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-phone text-[#bf953f] mt-1"></i>
+                            <div>
+                                <p class="font-medium text-white">Reservations</p>
+                                <p class="text-gray-400 text-sm">+251 955 566 999</p>
+                                <p class="text-gray-400 text-sm">reservations@twtsolutions.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-[#bf953f] mt-1"></i>
+                            <div>
+                                <p class="font-medium text-white">Location</p>
+                                <p class="text-gray-400 text-sm">TWT Solutions Hospitality Center</p>
+                                <p class="text-gray-400 text-sm">Addis Ababa, Ethiopia</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-800">
+                        <p class="text-gray-400 text-sm mb-3">All prices are in USD and subject to 10% service charge
+                        </p>
+                        <p class="text-gray-400 text-xs">*Please inform staff of any allergies or dietary restrictions
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desserts & Drinks Sections -->
+        <div class="grid md:grid-cols-2 gap-8 mt-12">
+            <!-- Desserts -->
+            <section id="desserts" class="menu-category reveal">
+                <div class="flex items-center gap-6 mb-12">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-2xl shadow-lg shadow-[#bf953f]/20">
+                        <i class="fas fa-ice-cream text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-bold text-white tracking-tight">Desserts</h2>
+                        <p class="text-[#bf953f] font-medium tracking-widest uppercase text-xs mt-1">Sweet endings to
+                            your dining experience</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="menu-item glass-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Chocolate Soufflé</h3>
+                                <p class="text-gray-400 text-sm mb-3">Warm dark chocolate soufflé with vanilla bean ice
+                                    cream</p>
+                            </div>
+                            <div class="text-2xl font-bold text-[#bf953f]">$14</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item glass-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Crème Brûlée Trio</h3>
+                                <p class="text-gray-400 text-sm mb-3">Vanilla, lavender, and pistachio crème brûlée with
+                                    seasonal berries</p>
+                            </div>
+                            <div class="text-2xl font-bold text-[#bf953f]">$16</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drinks -->
+            <section id="drinks" class="menu-category reveal">
+                <div class="flex items-center gap-6 mb-12">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-2xl shadow-lg shadow-[#bf953f]/20">
+                        <i class="fas fa-cocktail text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-bold text-white tracking-tight">Signature Drinks</h2>
+                        <p class="text-[#bf953f] font-medium tracking-widest uppercase text-xs mt-1">Crafted cocktails
+                            and premium beverages</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="menu-item glass-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">TWT Gold Martini</h3>
+                                <p class="text-gray-400 text-sm mb-3">Vodka, edible gold flakes, lychee liqueur,
+                                    elderflower tonic</p>
+                            </div>
+                            <div class="text-2xl font-bold text-[#bf953f]">$18</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item glass-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Safari Sunset</h3>
+                                <p class="text-gray-400 text-sm mb-3">Rum, passionfruit, mango, lime, grenadine, mint
+                                    garnish</p>
+                            </div>
+                            <div class="text-2xl font-bold text-[#bf953f]">$16</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-10 bg-[#050b14] border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-[#bf953f] to-[#aa771c] rounded-full flex items-center justify-center text-[#0a192f] font-bold">
+                            T</div>
+                        <div>
+                            <span class="text-xl font-bold tracking-widest text-white">TWT</span>
+                            <span class="text-[10px] text-[#bf953f] tracking-[0.3em] uppercase block">Digital
+                                Menu</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">Luxury digital menu solution by TWT Solutions.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-[#bf953f] transition text-sm">Back to
+                            Main Site</a>
+                        <a href="#starters" class="block text-gray-400 hover:text-[#bf953f] transition text-sm">View
+                            Starters</a>
+                        <a href="#main" class="block text-gray-400 hover:text-[#bf953f] transition text-sm">View Main
+                            Course</a>
+                        <a href="#qr" class="block text-gray-400 hover:text-[#bf953f] transition text-sm">QR Code</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Need Help?</h4>
+                    <div class="space-y-2">
+                        <p class="text-gray-400 text-sm">Scan the QR code or ask our staff for assistance.</p>
+                        <p class="text-gray-400 text-sm">For dietary concerns, please speak with our manager.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-gray-800 text-center">
+                <p class="text-gray-600 text-sm">© 2024 TWT Solutions Smart Menu. All rights reserved. | Part of TWT
+                    Hospitality Solutions</p>
+                <div class="mt-4 flex justify-center gap-4 text-xs uppercase tracking-widest">
+                    <a href="terms.html" class="text-gray-500 hover:text-[#bf953f] transition">Terms & Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/251955566999?text=Hi%20TWT%20Solutions,%20I%20have%20a%20question%20about%20the%20menu"
+        class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition z-50">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button onclick="scrollToTop()"
+        class="fixed bottom-24 right-6 bg-[#0a192f] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-2xl hover:bg-[#bf953f] transition z-50 border border-gray-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Language Toggle
+        let isSomali = false;
+
+        const menuContent = {
+            en: {
+                title: "Digital Luxury Menu",
+                subtitle: "Experience our curated selection of gourmet dishes and premium beverages. Scan the QR code to access this menu on your device.",
+                starters: "Starters & Appetizers",
+                startersDesc: "Light beginnings to awaken your palate",
+                main: "Main Course",
+                mainDesc: "Signature dishes crafted to perfection",
+                seafood: "Ocean Fresh Seafood",
+                seafoodDesc: "Daily catches from sustainable sources",
+                desserts: "Desserts",
+                dessertsDesc: "Sweet endings to your dining experience",
+                drinks: "Signature Drinks",
+                drinksDesc: "Crafted cocktails and premium beverages",
+                qrTitle: "Table Access",
+                qrDesc: "Share this menu with your fellow diners",
+                dietary: "Dietary Information",
+                restaurant: "Restaurant Information",
+                hours: "Opening Hours",
+                reservations: "Reservations",
+                location: "Location"
+            },
+            so: {
+                title: "Menu-ga Dijitaalka ee Qaaliga ah",
+                subtitle: "Kuso dhowaado doorashadeena ee cuntooyinka gourmet-ka iyo cabitaanka premium-ka. Ku scan QR-code si aad u hesho menu-gan telefankaaga.",
+                starters: "Bilow & Cuntooyinka Hore",
+                startersDesc: "Bilow dhaafka ah oo dhadhanaga kiciya",
+                main: "Cuntooyinka Ugu Waaweyn",
+                mainDesc: "Cuntooyinka calaamadaha leh oo si fiican loo sameeyay",
+                seafood: "Kalluunka Cusub ee Badda",
+                seafoodDesc: "Qabashada maalinta leh ee ilaha dabacsan",
+                desserts: "Macmacaan",
+                dessertsDesc: "Dhamaadka macmacaan ee waaya-aragnimadaada cunto",
+                drinks: "Cabitaanka Calaamadaha",
+                drinksDesc: "Cocktail-ada la sameeyay iyo cabitaanka premium-ka",
+                qrTitle: "Helitaanka Miiska",
+                qrDesc: "La wadaag menu-gan asxaabtaada",
+                dietary: "Macluumaadka Cuntada",
+                restaurant: "Macluumaadka Maqaayadda",
+                hours: "Saacadaha Furitaanka",
+                reservations: "Ballanqaad",
+                location: "Goobta"
+            }
+        };
+
+        function toggleLanguage() {
+            isSomali = !isSomali;
+            const lang = isSomali ? menuContent.so : menuContent.en;
+            const btn = document.querySelector('button[onclick="toggleLanguage()"]');
+
+            // Fade effect
+            document.body.style.opacity = '0.7';
+
+            setTimeout(() => {
+                btn.innerText = isSomali ? "SO / EN" : "EN / SO";
+
+                // Update all translatable content
+                document.querySelector('header h1').innerHTML = `<span class="text-gold-gradient">${isSomali ? 'Menu-ga Dijitaalka' : 'Digital Luxury'}</span> ${isSomali ? 'Qaaliga ah' : 'Menu'}`;
+                document.querySelector('header p').textContent = lang.subtitle;
+                document.querySelector('#starters h2').textContent = lang.starters;
+                document.querySelector('#starters p').textContent = lang.startersDesc;
+                document.querySelector('#main h2').textContent = lang.main;
+                document.querySelector('#main p').textContent = lang.mainDesc;
+                document.querySelector('#seafood h2').textContent = lang.seafood;
+                document.querySelector('#seafood p').textContent = lang.seafoodDesc;
+                document.querySelector('#desserts h2').textContent = lang.desserts;
+                document.querySelector('#desserts p').textContent = lang.dessertsDesc;
+                document.querySelector('#drinks h2').textContent = lang.drinks;
+                document.querySelector('#drinks p').textContent = lang.drinksDesc;
+                document.querySelector('#qr h3').textContent = lang.qrTitle;
+                document.querySelector('#qr p').textContent = lang.qrDesc;
+                document.querySelectorAll('.glass-card h3')[1].textContent = lang.dietary;
+                document.querySelectorAll('.glass-card h3')[2].textContent = lang.restaurant;
+                document.querySelectorAll('.glass-card .font-medium')[0].textContent = lang.hours;
+                document.querySelectorAll('.glass-card .font-medium')[1].textContent = lang.reservations;
+                document.querySelectorAll('.glass-card .font-medium')[2].textContent = lang.location;
+
+                document.body.style.opacity = '1';
+            }, 300);
+        }
+
+        // Reveal Animations
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Highlight active menu category while scrolling
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.menu-category');
+            const navLinks = document.querySelectorAll('.sticky a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-[#bf953f]', 'text-white', 'shadow-lg');
+                link.classList.add('bg-[#1e293b]');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('bg-[#1e293b]');
+                    link.classList.add('bg-[#bf953f]', 'text-white', 'shadow-lg');
+                }
+            });
+        });
+
+        // QR Code Generator Functions
+        function generateQRCode(text, size = 200) {
+            const container = document.getElementById('qrcode');
+            if (!container) return;
+            container.innerHTML = '';
+
+            QRCode.toCanvas(
+                container,
+                text,
+                {
+                    width: size,
+                    height: size,
+                    margin: 1,
+                    color: {
+                        dark: '#0a192f',
+                        light: '#ffffff'
+                    },
+                    errorCorrectionLevel: 'H'
+                },
+                function (error) {
+                    if (error) console.error('QR Code error:', error);
+                }
+            );
+
+            document.getElementById('menu-url').textContent = text;
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'TWT-Solutions-Smart-Menu.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function shareLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'TWT Solutions Smart Menu',
+                    text: 'Check out our luxury digital menu!',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            }
+        }
+
+        function generateCustomQR() {
+            const customText = prompt('Enter URL for QR code:', window.location.href);
+            if (customText) generateQRCode(customText);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            generateQRCode(window.location.href);
+            reveal(); // Initial check for elements in view
+        });
+    </script>
+</body>
+
+</html>
